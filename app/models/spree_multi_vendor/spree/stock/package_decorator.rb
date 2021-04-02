@@ -6,7 +6,7 @@ module SpreeMultiVendor::Spree::Stock::PackageDecorator
     if vendor && Spree::ShippingMethod.method_defined?(:vendor)
       vendor.shipping_methods.to_a
     else
-      shipping_categories.map(&:shipping_methods).reduce(:&).to_a
+      shipping_categories.map(&:shipping_methods).reduce(:&).select{|x| x.vendor_id.nil? }.to_a
     end
   end
 end
