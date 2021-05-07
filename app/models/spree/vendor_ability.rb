@@ -25,6 +25,7 @@ class Spree::VendorAbility
       apply_vendor_permissions
       apply_vendor_settings_permissions
       apply_state_changes_permissions
+      apply_product_tag_permissions
     end
   end
 
@@ -77,6 +78,10 @@ class Spree::VendorAbility
     can :create,  Spree::ProductOptionType
     can :manage,  Spree::OptionValueVariant, variant: { vendor_id: @vendor_ids }
     can :create,  Spree::OptionValueVariant
+  end
+
+  def apply_product_tag_permissions
+    can [:manage],  Spree::Tag
   end
 
   def apply_product_permissions
