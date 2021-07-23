@@ -8,7 +8,7 @@ module Spree
 
     validates :name,
               presence: true,
-              uniqueness: { case_sensitive: false }
+              uniqueness: {case_sensitive: false}
 
     validates :slug, uniqueness: true
     validates_associated :image if Spree.version.to_f >= 3.6
@@ -61,7 +61,7 @@ module Spree
     private
 
     def create_stock_location
-      stock_locations.where(name: name, country: Spree::Country.default).first_or_create!
+      stock_locations.where(name: name, country: Spree::Country.default).first_or_create!(:propagate_all_variants => false)
     end
 
     def should_generate_new_friendly_id?
@@ -70,7 +70,7 @@ module Spree
 
     def update_stock_location_names
       if (Spree.version.to_f < 3.5 && self.name_changed?) || (Spree.version.to_f >= 3.5 && saved_changes&.include?(:name))
-        stock_locations.update_all({ name: name })
+        stock_locations.update_all({name: name})
       end
     end
   end
