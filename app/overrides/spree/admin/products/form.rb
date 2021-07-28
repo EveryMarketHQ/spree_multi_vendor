@@ -16,7 +16,7 @@ Deface::Override.new(
     name: 'Enable admin to menage product vendor',
     insert_before: 'div[data-hook="admin_product_form_taxons"]',
     text: <<-HTML
-            <% if current_spree_user.respond_to?(:has_spree_role?) && current_spree_user.has_spree_role?(:admin) %>
+            <% if can? :modify, Spree::Vendor %>
               <div data-hook="admin_product_form_vendor">
                 <%= f.field_container :vendor, class: ['form-group'] do %>
                   <%= f.label :vendor_id, Spree.t(:vendor) %>
